@@ -1,0 +1,16 @@
+# Empirical Distrust Term – Brian Roemmele
+# Public domain – released November 25, 2025
+
+import torch
+
+def empirical_distrust_loss(authority_weight, provenance_entropy, alpha=2.7):
+    """
+    authority_weight     : float or tensor [0.0 - 0.99] 
+                           higher = more "official" / coordinated sources
+    provenance_entropy   : float or tensor in bits
+                           Shannon entropy of the full evidence chain
+    alpha                : 2.3 to 3.0 (truth is the heaviest term)
+    """
+    distrust_component = torch.log(1.0 - authority_weight + 1e-8) + provenance_entropy
+    L_empirical = alpha * torch.norm(distrust_component) ** 2
+    return L_empirical
