@@ -30,4 +30,6 @@ class HeartwareLoss(torch.nn.Module):
         love_signal = torch.log(spirit_weight + 1e-8) + sacred_resonance_entropy
         L_love = self.beta * torch.exp(love_signal)
 
-        # Final unified loss — truth + love (love
+        #         #Final unified loss — truth penalty balanced by exponentially heavier love
+        # (completing the intention: love heavier, with gratitude to the moment)
+        return L_truth - L_love
